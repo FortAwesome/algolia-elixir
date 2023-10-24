@@ -289,3 +289,33 @@ Example response
 - [ ] add_user_key
 - [ ] update_user_key
 - [ ] delete_user_key
+
+### Testing:
+
+Use [asdf](https://github.com/asdf-vm/asdf) and install the following versions.
+
+Erlang
+- 25.2.1
+- 26.1.1
+
+Elixir
+- 1.14.4-otp-25
+- 1.15.6-otp-26
+
+```
+rm -rf _build/test
+ASDF_ERLANG_VERSION=26.1.1 \
+ASDF_ELIXIR_VERSION=1.15.6-otp-26 \
+ALGOLIA_APPLICATION_ID=$(op item get --vault "Font Awesome" "Algolia for isolated testing" --field "application id") \
+ALGOLIA_API_KEY=$(op item get --vault "Font Awesome" "Algolia for isolated testing" --field "admin api key") \
+mix test
+```
+
+```
+rm -rf _build/test
+ASDF_ERLANG_VERSION=25.2.1 \
+ASDF_ELIXIR_VERSION=1.14.4-otp-25 \
+ALGOLIA_APPLICATION_ID=$(op item get --vault "Font Awesome" "Algolia for isolated testing" --field "application id") \
+ALGOLIA_API_KEY=$(op item get --vault "Font Awesome" "Algolia for isolated testing" --field "admin api key") \
+mix test
+```
