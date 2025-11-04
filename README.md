@@ -348,10 +348,11 @@ mix test
 
 ## Publishing Changes
 
-We publish as a [private package](https://hex.pm/packages/fortawesome/algolia) on [hex.pm](https://hex.pm/), using user: admin@fortawesome.com. Password is stored in 1Password.
+We publish as a [private package](https://hex.pm/packages/fortawesome/algolia) on [hex.pm](https://hex.pm/).
+Credentials are stored in 1Password under Hex.
 
-Increment the version number in mix.exs
-Run the following commands to publish a new version:
+- Increment the version number in mix.exs.
+- Run the following commands to publish a new version:
 
 ```
 mix hex.user auth
