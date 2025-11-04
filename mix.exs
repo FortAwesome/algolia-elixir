@@ -28,7 +28,7 @@ defmodule Algolia.Mixfile do
   defp deps do
     [
       {:hackney, "~> 1.20.1"},
-      {:jason, "~> 1.4.1"}
+      {:jason, "~> 1.4.4"}
     ]
   end
 end

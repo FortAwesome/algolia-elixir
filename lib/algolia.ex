@@ -491,6 +491,27 @@ defmodule Algolia do
   end
 
   @doc """
+  Get a rule by objectID of an index
+  """
+  def get_rule(index, object_id) do
+    :read
+    |> send_request(%{method: :get, path: Paths.rules(index, object_id)})
+    |> inject_index_into_response(index)
+  end
+
+  @doc """
+  Create a new rule for an index
+  """
+  def create_rule(index, rule, object_id) do
+    body = Jason.encode!(rule)
+    path = Paths.rules(index, object_id)
+
+    :write
+    |> send_request(%{method: :put, path: path, body: body})
+    |> inject_index_into_response(index)
+  end
+
+  @doc """
   Moves an index to new one
   """
   def move_index(src_index, dst_index) do

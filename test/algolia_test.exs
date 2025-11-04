@@ -330,6 +330,36 @@ defmodule AlgoliaTest do
     end
   end
 
+  test "rules" do
+    index_name = "rules_test"
+    setup_index(index_name)
+
+    rule = %{
+      "conditions" => [
+        %{"alternatives" => false, "anchoring" => "is", "pattern" => ""}
+      ],
+      "consequence" => %{
+        "filterPromotes" => true,
+        "promote" => [%{"objectIDs" => ["move_2"], "position" => 0}]
+      },
+      "enabled" => true,
+      "objectID" => "testrule"
+    }
+
+    assert {:ok, _} =
+      index_name
+      |> create_rule(rule, "testrule")
+      |> wait
+
+    {:ok, fetched_rule} = get_rule(index_name, "testrule")
+
+    assert fetched_rule["conditions"] == rule["conditions"]
+    assert fetched_rule["consequence"] == rule["consequence"]
+    assert fetched_rule["objectID"] == rule["objectID"]
+    assert fetched_rule["enabled"] == rule["enabled"]
+
+  end
+
   test "settings" do
     setup_index("settings_test")
 

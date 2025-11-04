@@ -19,6 +19,8 @@ defmodule Algolia.Paths do
 
   def operation(index), do: index(index) <> "/operation"
 
+  def rules(index, object_id), do: index(index) <> "/rules/#{object_id}"
+
   def task(index, task_id), do: index(index) <> "/task/#{task_id}"
 
   def object(index, object_id), do: index(index) <> "/#{object_id}"
