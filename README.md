@@ -264,6 +264,10 @@ Example response
         "indexName" => "my_index"}
 ```
 
+### Rules
+
+[Algolia Rules docs](https://www.algolia.com/doc/rest-api/search/save-rule)
+
 #### create_rule/3
 
 ```elixir
