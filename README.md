@@ -1,12 +1,8 @@
 ## Algolia
 
-[![Build Status](https://semaphoreci.com/api/v1/sikanhe/algolia-elixir/branches/master/badge.svg)](https://semaphoreci.com/sikanhe/algolia-elixir)
-[![Inline docs](http://inch-ci.org/github/sikanhe/algolia-elixir.svg?branch=master)](http://inch-ci.org/github/sikanhe/algolia-elixir)
-
 This is the elixir implementation of Algolia search API, it is purely functional
 
 Add to your dependencies
-
 
 ```elixir
   defp deps do
@@ -35,7 +31,7 @@ Add to your dependencies
       application_id: YOUR_APPLICATION_ID,
       api_key: YOUR_API_KEY
 
-*NOTE: You must use ADMIN API_KEY instead of SEARCH API_KEY to enable write access*
+_NOTE: You must use ADMIN API_KEY instead of SEARCH API_KEY to enable write access_
 
 ## The Client
 
@@ -46,19 +42,18 @@ However, Most of the client search/write functions all use the syntax
 
 So you can easy emulate the index.function() syntax using piping
 
-   "my_index" |> operation(args)
-
+"my_index" |> operation(args)
 
 ### Return values
 
 All functions are serialized into maps before returning these responses
 
-  - `{:ok, response}`
-  - `{:error, error_code, response}`
-  - `{:error, "Cannot connect to Algolia"}`: The client implements retry
-      strategy on all Algolia hosts with increasing timeout, It should only
-      return this error when it has tried all 4 hosts.
-      [**More Details here**](https://www.algolia.com/doc/rest#quick-reference).
+- `{:ok, response}`
+- `{:error, error_code, response}`
+- `{:error, "Cannot connect to Algolia"}`: The client implements retry
+  strategy on all Algolia hosts with increasing timeout, It should only
+  return this error when it has tried all 4 hosts.
+  [**More Details here**](https://www.algolia.com/doc/rest#quick-reference).
 
 ## Examples
 
@@ -87,6 +82,7 @@ See all available search options [**here**](https://www.algolia.com/doc/rest#ful
 ```
 
 You can specify a strategy to optimize your multiple queries
+
 - `:none`: Execute the sequence of queries until the end.
 - `stop_if_enough_matches`: Execute the sequence of queries until the number of hits is reached by the sum of hits.
 
@@ -127,7 +123,6 @@ Partially updates a single object
 
 Update multiple objects, must have objectID in each object, or use the `id_attribute` option (see below)
 
-
 ```elixir
     "my_index" |> partial_update_objects([%{objectID: "1"}, %{objectID: "2"}])
 ```
@@ -139,7 +134,6 @@ objectID, you can turn this off by passing `false` to the `:upsert?` option
     "my_index" |> partial_update_object(%{title: "hello"}, "12345", upsert?: false)
     "my_index" |> partial_update_objects([%{id: "1"}, %{id: "2"}], id_attribute: :id, upsert?: false)
 ```
-
 
 ### Bonus for this Elixir client only: `id_attribute` option
 
@@ -171,7 +165,6 @@ All write operations can be waited on by simply piping the response into wait/1
     "my_index" |> save_object(%{id: "123"}) |> wait
 ```
 
-
 Since the client polls the server to check for publishing status,
 You can specify a time between each tick of the poll, the default is 1000 ms
 
@@ -180,7 +173,6 @@ You can specify a time between each tick of the poll, the default is 1000 ms
 ```
 
 You can also use the underlying wait_task function explicitly
-
 
 ```elixir
     {:ok, %{"taskID" => task_id, "indexName" => index}}
@@ -199,9 +191,9 @@ or with option
 
 #### Listing all indexes
 
- ```elixir
-    list_indexes()
- ```
+```elixir
+   list_indexes()
+```
 
 #### move_index/2
 
@@ -268,6 +260,36 @@ Example response
         "taskID" => 10210332.
         "indexName" => "my_index"}
 ```
+
+### Rules
+
+[Algolia Rules docs](https://www.algolia.com/doc/rest-api/search/save-rule)
+
+#### create_rule/3
+
+```elixir
+
+    rule = %{
+      "conditions" => [
+        %{"alternatives" => false, "anchoring" => "is", "pattern" => ""}
+      ],
+      "consequence" => %{
+        "filterPromotes" => true,
+        "promote" => [%{"objectIDs" => ["move_2"], "position" => 0}]
+      },
+      "enabled" => true,
+      "objectID" => "ruleObjectID"
+    }
+
+    create_rule(index, rule, "ruleObjectID")
+```
+
+#### get_rule/2
+
+```elixir
+    get_rule(index, "ruleObjectID")
+```
+
 ### TODOS:
 
 - [x] get_object
@@ -295,10 +317,12 @@ Example response
 Use [asdf](https://github.com/asdf-vm/asdf) and install the following versions.
 
 Erlang
+
 - 25.2.1
 - 26.1.1
 
 Elixir
+
 - 1.14.4-otp-25
 - 1.15.6-otp-26
 
