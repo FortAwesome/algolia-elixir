@@ -1,8 +1,5 @@
 ## Algolia
 
-[![Build Status](https://semaphoreci.com/api/v1/sikanhe/algolia-elixir/branches/master/badge.svg)](https://semaphoreci.com/sikanhe/algolia-elixir)
-[![Inline docs](http://inch-ci.org/github/sikanhe/algolia-elixir.svg?branch=master)](http://inch-ci.org/github/sikanhe/algolia-elixir)
-
 This is the elixir implementation of Algolia search API, it is purely functional
 
 Add to your dependencies
