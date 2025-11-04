@@ -314,6 +314,8 @@ Example response
 
 ### Testing:
 
+_WARNING:_ Running the test suite removes all indexes from the Algolia account!
+
 Use [asdf](https://github.com/asdf-vm/asdf) and install the following versions.
 
 Erlang
@@ -342,4 +344,17 @@ ASDF_ELIXIR_VERSION=1.14.4-otp-25 \
 ALGOLIA_APPLICATION_ID=$(op item get --vault "Font Awesome" "Algolia for isolated testing" --field "application id") \
 ALGOLIA_API_KEY=$(op item get --vault "Font Awesome" "Algolia for isolated testing" --field "admin api key") \
 mix test
+```
+
+## Publishing Changes
+
+We publish as a [private package](https://hex.pm/packages/fortawesome/algolia) on [hex.pm](https://hex.pm/), using user: admin@fortawesome.com. Password is stored in 1Password.
+
+Increment the version number in mix.exs
+Run the following commands to publish a new version:
+
+```
+mix hex.user auth
+mix hex.publish package --organization fortawesome
+
 ```
